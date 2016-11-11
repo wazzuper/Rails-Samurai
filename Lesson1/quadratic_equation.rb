@@ -12,8 +12,9 @@ c = gets.chomp.to_f
 d = b**2 - 4 * a * c
 
 if d > 0
-	x1 = (-b + Math.sqrt(d)) / (2 * a)
-	x2 = (-b - Math.sqrt(d)) / (2 * a)
+	sqrt_d = Math.sqrt(d)
+	x1 = (-b + sqrt_d) / (2 * a)
+	x2 = (-b - sqrt_d) / (2 * a)
 
 	puts "Discriminant is #{d}"
 	puts "First root is #{x1}"
