@@ -8,24 +8,16 @@ month = gets.chomp.to_i
 print "Enter year: "
 year = gets.chomp.to_i
 
-normal_year = { 1=>31, 2=>28, 3=>31, 4=>30, 5=>31, 6=>30,
-  7=>31, 8=>31, 9=>30, 10=>31, 11=>30, 12=>31 }
-leap_year = { 1=>31, 2=>29, 3=>31, 4=>30, 5=>31, 6=>30,
-  7=>31, 8=>31, 9=>30, 10=>31, 11=>30, 12=>31 }
-day_number = 0
+feb = 29 if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+feb = 28
+array_months = [31, feb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-if year % 4 == 0 && year % 100 != 0 || year % 400 == 0
-  leap_year.each do |key, value|
-    if key < month
-      day_number += value
-    end
-  end
-else
-  normal_year.each do |key, value|
-    if key < month
-      day_number += value
-    end
-  end
+day_number = 0
+index = 1
+
+while index < month
+  day_number += array_months[index]
+  index += 1
 end
 
 day_number += day

@@ -4,7 +4,7 @@ array = []
 i = 10
 
 while array.last != 100 do
-  array.push(i)
+  array << i
   i += 5
 end
 
