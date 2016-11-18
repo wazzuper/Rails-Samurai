@@ -16,7 +16,7 @@ route1 = Route.new("Иваново", "Кукуево")
 route1.add_station("Шариково")
 route1.show
 
-train1.get_route(route1)
+train1.route = route1
 train1.to_station("Шариково")
 train1.current_station
 train1.previous
@@ -26,8 +26,8 @@ train1.accelerate(50)
 train1.current_speed
 train1.stop
 train1.current_quantity
-train1.coupling("прицепить")
-train1.coupling("отцепить")
+train1.add_train
+train1.remove_train
 
 
 

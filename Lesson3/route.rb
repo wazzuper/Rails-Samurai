@@ -2,9 +2,7 @@ class Route
   attr_reader :stations
 
   def initialize(first, last)
-    @stations = []
-    stations << first
-    stations << last
+    @stations = [first, last]
     puts "Создан маршрут #{@stations}"
   end
 

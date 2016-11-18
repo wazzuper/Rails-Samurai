@@ -27,22 +27,25 @@ class Train
     puts "Количество вагонов: #{@quantity}"
   end
 
-  def coupling(input)
+  def add_train
     if @speed > 0
       puts "Для начала остановите поезд!"
     else
-      case input
-        when "прицепить"
-          @quantity += 1
-          puts "Вагон прицеплен"
-        when "отцепить"
-          @quantity -= 1
-          puts "Вагон отцеплен"
-      end
-    end    
+      @quantity += 1
+      puts "Вагон прицеплен"
+    end
   end
 
-  def get_route(route)
+  def remove_train
+    if @speed > 0
+      puts "Для начала остановите поезд!"
+    else
+      @quantity -= 1
+      puts "Вагон отцеплен"
+    end
+  end
+
+  def route=(route)
     @route = route
     @current_station = @route.stations[0]
     puts "Поезд принял маршрут, текущая станция #{@current_station}"
