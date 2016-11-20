@@ -1,0 +1,88 @@
+class Train
+  attr_reader :number, :type
+
+  def initialize(number, type, speed = 0)
+    @number = number
+    @type = type
+    @quantity = []
+    @speed = speed
+    puts "Создан поезд #{number}, тип #{type}"
+  end
+
+  def accelerate(speed)
+    @speed += speed
+    puts "Поезд разогнался на #{speed}"
+  end
+
+  def current_speed
+    puts "Текущая скорость #{@speed}"
+  end
+
+  def stop
+    puts "Поезд остановился!"
+    @speed = 0
+  end
+
+  def current_quantity
+    puts "Количество вагонов: #{@quantity.size}"
+  end
+
+  def add_wagon(wagon)
+    if speed_zero? && same_wagon?(wagon)
+      @quantity << wagon
+      puts "К поезду типа #{@type} добавлен вагон типа #{wagon.type}. Общее количество вагонов: #{@quantity.size}"
+    elsif same_wagon?(wagon) && !speed_zero?
+      puts "Для начала остановите поезд!"
+    elsif !same_wagon?(wagon)
+      puts "Нельзя присоединить данный вагон к этому типу поезда"
+    end
+  end
+
+  def remove_wagon
+    if speed_zero?
+      @quantity.pop
+      puts "Вагон отцеплен"
+    else
+      puts "Для начала остановите поезд!"
+    end
+  end
+
+  def route=(route)
+    @route = route
+    @current_station = @route.stations[0]
+    puts "Поезд принял маршрут, текущая станция #{@current_station}"
+  end
+
+  def to_station(station)
+    if @route.stations.include?(station)
+      arr_index = @route.stations.index(station)
+      @current_station = @route.stations[arr_index]
+      puts "Поезд переместился на станцию #{@current_station}"
+    else
+      puts "Такой станции нет!"
+    end
+  end
+
+  def current_station
+    puts "Текущая станция #{@current_station}"
+  end
+
+  def previous
+    arr_index = @route.stations.index(@current_station)
+    previous_station = @route.stations[arr_index - 1]
+    puts "Предыдущая станция #{previous_station}"
+  end
+
+  def next
+    arr_index = @route.stations.index(@current_station)
+    next_station = @route.stations[arr_index + 1]
+    puts "Следущая станция #{next_station}"
+  end
+
+protected
+
+  # к данному методу нет доступа из клиентского интерфейса
+  def speed_zero?
+    @speed.zero?
+  end
+end
