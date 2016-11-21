@@ -29,6 +29,7 @@ train4.add_wagon(wagon2)
 train3.current_quantity
 train3.remove_wagon
 train3.current_quantity
+train2.remove_wagon
 
 station1 = Station.new("Гуделкино")
 station1.get_train(train1)

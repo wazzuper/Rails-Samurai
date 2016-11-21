@@ -1,5 +1,5 @@
 class Train
-  attr_reader :number, :type
+  attr_reader :number, :type, :speed
 
   def initialize(number, type, speed = 0)
     @number = number
@@ -28,22 +28,26 @@ class Train
   end
 
   def add_wagon(wagon)
-    if speed_zero? && same_wagon?(wagon)
+    if speed_zero? && wagon.type == self.type
       @quantity << wagon
       puts "К поезду типа #{@type} добавлен вагон типа #{wagon.type}. Общее количество вагонов: #{@quantity.size}"
-    elsif same_wagon?(wagon) && !speed_zero?
+    elsif wagon.type == self.type && !speed_zero?
       puts "Для начала остановите поезд!"
-    elsif !same_wagon?(wagon)
+    elsif !wagon.type == self.type
       puts "Нельзя присоединить данный вагон к этому типу поезда"
     end
   end
 
   def remove_wagon
-    if speed_zero?
-      @quantity.pop
-      puts "Вагон отцеплен"
+    if @quantity.size > 0
+      if speed_zero?
+        @quantity.pop
+        puts "Вагон отцеплен. Общее количество вагонов: #{@quantity.size}"
+      else
+        puts "Для начала остановите поезд!"
+      end
     else
-      puts "Для начала остановите поезд!"
+      puts "Для начала добавьте вагон"
     end
   end
 

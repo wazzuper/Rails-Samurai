@@ -1,4 +1,6 @@
 class Station
+  attr_reader :name
+  
   def initialize(name)
     @name = name
     @trains = []
@@ -11,8 +13,12 @@ class Station
   end
 
   def show
-    puts "Поезда на станции"
-    @trains.each { |train| puts "#{train.number}" }
+    if @trains.size > 0
+      puts "Поезда на станции"
+      @trains.each { |train| puts "#{train.number} - #{train.type}" }
+    else
+      puts "На станции нет поездов"
+    end
   end
 
   def train_type(type)
