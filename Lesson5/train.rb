@@ -5,10 +5,10 @@ class Train
   include CompanyName
   include InstanceCounter
   attr_reader :number, :type, :speed
-  @@trains = []
+  @@trains = {}
 
   def self.find(number)
-    @@trains.each { |value| puts value if value.number == number }
+    puts @@trains[number]
   end
 
   def initialize(number, type, speed = 0)
@@ -16,7 +16,7 @@ class Train
     @type = type
     @quantity = []
     @speed = speed
-    @@trains << self
+    @@trains[number] = self
     self.register_instance
     Train.instances
     puts "Создан поезд #{@number}, тип #{@type}"
