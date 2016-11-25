@@ -3,7 +3,15 @@ class Route
 
   def initialize(first, last)
     @stations = [first, last]
+    validate!
     puts "Создан маршрут #{@stations}"
+  end
+
+  def valid?
+    validate!
+    puts "yes"
+  rescue
+    false
   end
 
   def add_station(station)
@@ -18,5 +26,12 @@ class Route
 
   def show
     @stations.each { |station| puts "#{station}"}
+  end
+
+  private
+
+  def validate!
+    raise "Маршрут станций не может быть пустым!" if stations.empty?
+    true
   end
 end

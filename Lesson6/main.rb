@@ -54,17 +54,23 @@ class Menu
     print "Введите название станции: "
     station = gets.chomp
     @stations << Station.new(station)
+  rescue RuntimeError => e
+    puts "#{e}"
+    retry
   end
 
   def add_train
-    print "Поезд будет 'Пассажирский' или 'Грузовой'? "
-    train_type = gets.chomp
-    raise "Неверный типа поезда!" if train_type != "Грузовой" && train_type != "Пассажирский"
-    
     print "Укажите номер поезда: "
-    train_number = gets.chomp.to_s
-    @trains << CargoTrain.new(train_number, train_type) if train_type == "Грузовой"
-    @trains << PassengerTrain.new(train_number, train_type) if train_type == "Пассажирский"
+    number = gets.chomp.to_s
+    print "Поезд будет 'Пассажирский' или 'Грузовой'? "
+    type = gets.chomp
+    if type == "Пассажирский"
+      @trains << PassengerTrain.new(number, type)
+    elsif type == "Грузовой"
+      @trains << CargoTrain.new(number, type)
+    else
+      puts "Неверный тип поезда!"
+    end
   rescue RuntimeError => e
     puts "#{e}"
     retry

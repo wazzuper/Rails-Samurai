@@ -59,3 +59,5 @@ puts train1.company_name
 
 puts Station.all
 Train.find(train1.number)
+
+route1.valid?

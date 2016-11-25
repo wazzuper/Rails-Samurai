@@ -48,7 +48,7 @@ class Station
   private
 
   def validate!
-    raise "Название станции не может быть nil!" if name.nil?
+    raise "Название станции не может быть пустым!" if name.empty?
     true
   end
 end
