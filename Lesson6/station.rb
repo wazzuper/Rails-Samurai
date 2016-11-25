@@ -8,9 +8,16 @@ class Station
 
   def initialize(name)
     @name = name
+    validate!
     @trains = []
     @@all_stations << self
     puts "Объявлена станция #{name}"
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
   end
 
   def get_train(train)
@@ -36,5 +43,12 @@ class Station
   def go_train(train)
     @trains.delete(train)
     puts "Поезд #{train.number} уехал со станции #{@name}"
+  end
+
+  private
+
+  def validate!
+    raise "Название станции не может быть nil!" if name.nil?
+    true
   end
 end
