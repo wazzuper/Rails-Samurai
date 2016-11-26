@@ -39,13 +39,16 @@ station1.get_train(train2)
 station1.show
 station1.train_type("Грузовой")
 station1.go_train(train1)
+station2 = Station.new("Кряково")
+station3 = Station.new("Грязево")
 
-route1 = Route.new("Иваново", "Кукуево")
-route1.add_station("Шариково")
+route1 = Route.new(station1, station2)
+route1.add_station(station3)
 route1.show
+route1.valid?
 
 train1.route = route1
-train1.to_station("Шариково")
+train1.to_station(station2)
 train1.current_station
 train1.previous
 train1.next
@@ -59,5 +62,3 @@ puts train1.company_name
 
 puts Station.all
 Train.find(train1.number)
-
-route1.valid?

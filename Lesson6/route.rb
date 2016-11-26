@@ -1,7 +1,11 @@
+require_relative 'station'
+
 class Route
   attr_reader :stations
 
   def initialize(first, last)
+    @first = first
+    @last = last
     @stations = [first, last]
     validate!
     puts "Создан маршрут #{@stations}"
@@ -31,6 +35,8 @@ class Route
   private
 
   def validate!
+    raise "Не объект Station!" unless @first.instance_of?(Station)
+    raise "Не объект Station!" unless @last.instance_of?(Station)
     raise "Маршрут станций не может быть пустым!" if stations.empty?
     true
   end
