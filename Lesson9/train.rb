@@ -17,8 +17,8 @@ class Train
 
   @@trains = {}
 
-  validate :number, :format_check, NUMBER_FORMAT
-  validate :type, :presence_check
+  validate :number, :format, NUMBER_FORMAT
+  validate :type, :presence
 
   def self.find(number)
     puts @@trains[number]

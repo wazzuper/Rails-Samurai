@@ -7,12 +7,10 @@ module Accessors
 
       define_method("#{name}=".to_sym) do |value|
         instance_variable_set(var_name, value)
-        @var_array ||= {}
-        @var_array[var_name] ||= []
-        @var_array[var_name] << value
+        instance_variable_set("@#{name}_history", eval("#{name}_history") << value)
       end
 
-      define_method("#{name}_history") { @var_array[var_name] }
+      define_method("#{name}_history") { instance_variable_get("@#{name}_history") || [] }
     end
   end
 

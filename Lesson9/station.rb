@@ -4,11 +4,10 @@ class Station
   include Validation
 
   attr_reader :name
-
   
   @@all_stations = []
 
-  validate :name, :presence_check
+  validate :name, :presence
 
   def self.all
     print "Станции: #{@@all_stations}"

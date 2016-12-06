@@ -1,23 +1,33 @@
 module Validation
   def self.included(base)
     base.extend ClassMethods
-    base.send :include, InstanceMethods
+    base.include InstanceMethods
   end
 
   module ClassMethods
-    def validate(name, type, option = nil)
+    def validate(attribute, type, option = nil)
       @check_array ||= []
-      @check_array << { name: name, type: type, option: option }
+      @check_array << { attribute: attribute, type: type, option: option }
     end
   end
 
   module InstanceMethods
+    
+    def valid?
+      validate!
+      true
+    rescue StandardError
+      false
+    end
+
+    private
+
     def validate!
       our_class = self.class
       while our_class != Object
         if check_array = our_class.class_eval('@check_array')
           check_array.each do |value|
-            var = instance_variable_get("@#{value[:name]}")
+            var = instance_variable_get("@#{value[:attribute]}")
             method_checking = "#{value[:type]}"
             send method_checking, var, value[:option] if value[:option]
           end
@@ -26,24 +36,16 @@ module Validation
       end
     end
 
-    def valid?
-      validate!
-    rescue ArgumentError
-      false
-    end
-
-    private
-
-    def presence_check(name)
-      raise "Не может быть пустым!" if name.empty?
+    def presence(name)
       raise "Не может быть nil!" if name.nil?
+      raise "Не может быть пустым!" if name == ''
     end
 
-    def format_check(name, format)
+    def format(name, format)
       raise "Неверный формат!" unless name =~ format
     end
 
-    def type_check(name, type)
+    def type(name, type)
       raise "Неверный тип!" unless name.is_a?(type)
     end
   end
